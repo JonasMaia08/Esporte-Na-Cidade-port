@@ -1,14 +1,8 @@
-import { Column, Entity, ManyToMany, OneToMany } from "typeorm";
+
+import { Column, Entity, OneToMany } from "typeorm";
 import { UserBase } from "./user-base.entity";
 import { Atendiment } from "./atendiment.entity";
-import { Modality } from "./modality.entity";
-<<<<<<< HEAD
-import { AthleteToModality } from "./athleteToModality.entity";
-=======
-import { ManyToOne } from "typeorm";
 import { Enrollment } from "./enrollment.entity";
-import { OneToMany } from "typeorm";
->>>>>>> af7abc0 (feat: envio e recebimento da lista de chamadas)
 
 @Entity("athlete")
 export class Athlete extends UserBase {
@@ -60,20 +54,9 @@ export class Athlete extends UserBase {
   @Column("text", { nullable: true, default: "Nenhuma alergia informada" })
   allergy: string;
 
-  @ManyToMany(() => Atendiment, (atendiment) => atendiment.athletes, {})
+  @OneToMany(() => Atendiment, (a) => a.athlete, { nullable: true })
   atendiments: Atendiment[];
 
-<<<<<<< HEAD
-    @ManyToMany(() => Modality, (modality) => modality.registred_athletes)
-    modalities: Modality[];
-
-    @OneToMany(() => AthleteToModality, (athleteToModality) => athleteToModality.athlete)
-    athleteToModality: AthleteToModality[];
-=======
-  @ManyToMany(() => Modality, (modality) => modality.registred_athletes)
-  modalities: Modality[];
-
-  @OneToMany(() => Enrollment)
+  @OneToMany(() => Enrollment, (e) => e.athlete, { nullable: true })
   enrollments: Enrollment[];
->>>>>>> af7abc0 (feat: envio e recebimento da lista de chamadas)
 }
