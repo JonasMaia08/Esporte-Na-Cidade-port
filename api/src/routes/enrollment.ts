@@ -40,7 +40,7 @@ router.post("/", authentication, async (req: AuthRequest, res: Response) => {
             athlete,
             modality,
             active: true,
-            approved: false,
+            aproved: false,
         });
         await enrollmentRepository.save(enrollment);
 
@@ -74,8 +74,8 @@ router.get("/", authentication, async (req: AuthRequest, res: Response) => {
         }
 
         // Só filtra se vier explicitamente como 'true' ou 'false'
-        if (query.approved === 'true' || query.approved === 'false') {
-            where.approved = query.approved === 'true';
+        if (query.aproved === 'true' || query.aproved === 'false') {
+            where.aproved = query.aproved === 'true';
         }
         if (query.active === 'true' || query.active === 'false') {
             where.active = query.active === 'true';
@@ -87,7 +87,7 @@ router.get("/", authentication, async (req: AuthRequest, res: Response) => {
         });
 
         // Log para depuração: mostrar status active de cada enrollment
-        console.log('ENROLLMENTS GET - ACTIVE STATUS:', enrollments.map(e => ({ id: e.id, active: e.active, approved: e.approved })));
+        console.log('ENROLLMENTS GET - ACTIVE STATUS:', enrollments.map(e => ({ id: e.id, active: e.active, aproved: e.aproved })));
 
         res.status(200).json(enrollments);
     } catch (error) {
@@ -102,8 +102,8 @@ router.get("/:id", authentication, async (req: AuthRequest, res: Response) => {
 
         const where: any = { id: Number(id) };
 
-        if (query.approved !== null && query.approved !== undefined) {
-            where.approved = query.approved === 'true';
+        if (query.aproved !== null && query.aproved !== undefined) {
+            where.aproved = query.aproved === 'true';
         }
 
         const enrollment = await enrollmentRepository.findOne({
@@ -116,7 +116,7 @@ router.get("/:id", authentication, async (req: AuthRequest, res: Response) => {
         }
 
         // Log para depuração: mostrar status active do enrollment
-        console.log('ENROLLMENTS GET BY ID - ACTIVE STATUS:', { id: enrollment.id, active: enrollment.active, approved: enrollment.approved });
+        console.log('ENROLLMENTS GET BY ID - ACTIVE STATUS:', { id: enrollment.id, active: enrollment.active, aproved: enrollment.aproved });
         res.status(200).json([enrollment]);  // Wrap in array
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -126,7 +126,7 @@ router.get("/:id", authentication, async (req: AuthRequest, res: Response) => {
 router.put("/:id", authentication, async (req: AuthRequest, res: Response) => {
     try {
         const { id } = req.params;
-        const { approved, active } = req.body;
+        const { aproved, active } = req.body;
 
         const enrollment = await enrollmentRepository.findOne({
             where: { id: Number(id) },
@@ -138,7 +138,7 @@ router.put("/:id", authentication, async (req: AuthRequest, res: Response) => {
         }
 
         // Store old values
-        const oldApproved = enrollment.approved;
+        const oldApproved = enrollment.aproved;
         const oldActive = enrollment.active;
 
         let hasChange = false;
@@ -147,14 +147,14 @@ router.put("/:id", authentication, async (req: AuthRequest, res: Response) => {
         let oldValue: any = {};
         let newValue: any = {};
 
-        // Compare and set approved
-        if (typeof approved === 'boolean' && approved !== oldApproved) {
+        // Compare and set aproved
+        if (typeof aproved === 'boolean' && aproved !== oldApproved) {
             hasChange = true;
-            eventType = approved ? 'approved' : 'disapproved';
-            eventDescription = approved ? 'Inscrição aprovada' : 'Inscrição reprovada';
-            oldValue.approved = oldApproved;
-            newValue.approved = approved;
-            enrollment.approved = approved;
+            eventType = aproved ? 'aproved' : 'disapproved';
+            eventDescription = aproved ? 'Inscrição aprovada' : 'Inscrição reprovada';
+            oldValue.aproved = oldApproved;
+            newValue.aproved = aproved;
+            enrollment.aproved = aproved;
         }
         // Compare and set active
         if (typeof active === 'boolean' && active !== oldActive) {
@@ -217,19 +217,19 @@ router.put("/approve/:id", authentication, async (req: AuthRequest, res: Respons
             return res.status(404).json({ message: "Inscrição não encontrada" });
         }
 
-        const oldApproved = enrollment.approved;
+        const oldApproved = enrollment.aproved;
         if (!oldApproved) {
-            enrollment.approved = true;
+            enrollment.aproved = true;
             await enrollmentRepository.save(enrollment);
 
             await logEnrollmentChange({
                 enrollment,
                 athlete: enrollment.athlete,
                 changedBy: req.user.id,
-                eventType: 'approved',
+                eventType: 'aproved',
                 eventDescription: 'Inscrição aprovada',
-                oldValue: { approved: oldApproved },
-                newValue: { approved: true }
+                oldValue: { aproved: oldApproved },
+                newValue: { aproved: true }
             });
         }
 

@@ -1,30 +1,34 @@
-import "reflect-metadata";
+import "reflect-metadata"; // deve ser o primeiro import
 import { DataSource } from "typeorm";
-import "reflect-metadata";
 import env from "../environment/env";
 import { seedOfAllEntities } from "../seeds/seed";
 
 export const AppDataSource = new DataSource({
   type: "sqlite",
-  // host: 'localhost',
-  // port: 3306,
-  // username: 'root',
-  // password: 'senha',
-  database: env.NODE_ENV ? "db.test.sqlite" : "db.sqlite",
-  // url:"",
-  synchronize: true, //sincroniza as alterações com o banco
-  dropSchema: false, // !USAR SOMENTE EM DESENVOLVIMENTO: deleta todas as tabelas para sincronizar o banco
-  logging: false, // loga as queries do banco
-  entities: ["dist/entities/*{.ts,.js}"],
-  migrations: ["dist/migrations/*.ts"],
+  database: env.NODE_ENV === "test" ? "db.test.sqlite" : "db.sqlite",
+
+  synchronize: false, // ❗ desativei (no seu caso, Render = prod)
+  dropSchema: false,
+  logging: false,
+
+  // entidades devem apontar para o dist compilado
+  entities: ["dist/entities/*.js"],
+
+  // migrations também do dist
+  migrations: ["dist/migrations/*.js"],
   migrationsTableName: "migrations",
 });
 
 AppDataSource.initialize()
   .then(async () => {
-  await AppDataSource.runMigrations();
-  await resetAndSeedDatabase();
+    console.log("🚀 DataSource inicializado");
 
+    // roda migrations do dist
+    await AppDataSource.runMigrations();
+    console.log("📦 Migrations executadas");
+
+    // reseta e popula
+    await resetAndSeedDatabase();
   })
   .catch((error) => {
     console.error("Database connection error:", error);
@@ -37,36 +41,30 @@ async function resetAndSeedDatabase() {
 
   try {
     await queryRunner.startTransaction();
-
-    // 1. Desativa FKs temporariamente
     await queryRunner.query("PRAGMA foreign_keys = OFF");
 
-    // 2. Obtém tabelas de forma específica para SQLite
     const tables = await getAllTablesSQLite(queryRunner);
 
-    // 3. Limpeza adaptada para SQLite
     const deletionOrder = [
       "address",
-      "enrollment", // Tabela que referencia outras
-      "atendiment", // Tabela que referencia outras
-      "teacher", // Tabela que referencia modality
-      "athlete", // Tabela independente
-      "modality", // Tabela independente
-      // Adicione outras tabelas conforme necessário
+      "enrollment",
+      "atendiment",
+      "teacher",
+      "athlete",
+      "modality",
+      "material",
+      "documentation",
+      "release",
+      "manager",
     ].filter((table) => tables.includes(table));
 
-    // 4. Limpeza na ordem correta
     for (const table of deletionOrder) {
       await queryRunner.query(`DELETE FROM "${table}";`);
-      await queryRunner.query(
-        `DELETE FROM sqlite_sequence WHERE name='${table}';`
-      );
+      await queryRunner.query(`DELETE FROM sqlite_sequence WHERE name='${table}';`);
       console.log(`Tabela ${table} limpa`);
     }
 
-    // 4. Reativa FKs
     await queryRunner.query("PRAGMA foreign_keys = ON");
-
     await queryRunner.commitTransaction();
     console.log("✅ All tables cleaned");
   } catch (error) {
@@ -77,9 +75,9 @@ async function resetAndSeedDatabase() {
     await queryRunner.release();
   }
 
-  console.log("Starting seed");
+  console.log("🌱 Starting seed");
   await seedOfAllEntities();
-  console.log("Finished seed");
+  console.log("🏁 Finished seed");
 }
 
 async function getAllTablesSQLite(queryRunner): Promise<string[]> {

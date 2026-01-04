@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import { Column, Entity, ManyToOne, OneToMany } from "typeorm";
 import { UserBase } from "./user-base.entity";
 import { Modality } from "./modality.entity";

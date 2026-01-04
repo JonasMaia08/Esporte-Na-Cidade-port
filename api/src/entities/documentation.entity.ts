@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity('documentation')

@@ -25,11 +25,10 @@ export async function logEnrollmentChange({
   newValue,
 }: LogChangeParams) {
   const nowGmt3 = new Date(Date.now() - 3 * 60 * 60 * 1000);
+  
   const log = enrollmentLogRepository.create({
-    enrollment,
-    enrollment_id: enrollment.id,
-    athlete,
-    athlete_id: athlete.id,
+    enrollment: enrollment,        // This is enough - TypeORM will extract the ID
+    athlete: athlete,              // Same here
     changed_by: changedBy,
     event_type: eventType,
     event_description: eventDescription,
@@ -37,5 +36,6 @@ export async function logEnrollmentChange({
     new_value: newValue,
     created_at: nowGmt3,
   });
+  
   await enrollmentLogRepository.save(log);
 }

@@ -1,4 +1,5 @@
 import "reflect-metadata";
+import "reflect-metadata";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Teacher } from "./teacher.entity";
 import { Enrollment } from "./enrollment.entity";

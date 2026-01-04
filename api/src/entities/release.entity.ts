@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import { Priority } from "../enums/priority.enum";
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
 

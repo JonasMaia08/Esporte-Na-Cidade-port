@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import { Entity, OneToMany } from "typeorm";
 import { UserBase } from "./user-base.entity";
 import { Token } from "./token.entity";

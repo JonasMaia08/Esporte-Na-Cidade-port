@@ -93,7 +93,7 @@ router.get(
       where: {
         enrollments: {
           active: true,
-          approved: true,
+          aproved: true,
           modality: {
             id: id_modality,
           },

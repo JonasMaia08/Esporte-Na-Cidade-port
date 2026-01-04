@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm"
 import { Teacher } from "./teacher.entity"
 import { Manager } from "./manager.entity"
