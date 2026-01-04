@@ -13,9 +13,13 @@
     "sourceMap": true,
     "esModuleInterop": true,
     "baseUrl": ".",
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "skipLibCheck": true
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts"], // Incluindo todos os arquivos TypeScript
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts"
+  ], // Incluindo todos os arquivos TypeScript
   "exclude": [
     "node_modules"
   ]

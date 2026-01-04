@@ -1,3 +1,4 @@
+import { Request } from "express";
 import { Teacher } from "../entities/teacher.entity";
 import { Athlete } from "../entities/athlete.entity";
 import { Manager } from "../entities/manager.entity";
@@ -8,9 +9,12 @@ declare global {
       user?: {
         id: number;
         role: string;
-        type: 'athlete' | 'teacher' | 'manager';
+        type: "athlete" | "teacher" | "manager";
       };
       accessToken?: string;
+      athlete?: Athlete;
+      teacher?: Teacher;
+      manager?: Manager;
     }
   }
 }
