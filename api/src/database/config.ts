@@ -15,8 +15,8 @@ export const AppDataSource = new DataSource({
   synchronize: true, //sincroniza as alterações com o banco
   dropSchema: false, // !USAR SOMENTE EM DESENVOLVIMENTO: deleta todas as tabelas para sincronizar o banco
   logging: false, // loga as queries do banco
-  entities: ["src/entities/*{.ts,.js}"],
-  migrations: ["src/migrations/*.ts"],
+  entities: ["dist/entities/*{.ts,.js}"],
+  migrations: ["dist/migrations/*.ts"],
   migrationsTableName: "migrations",
 });
 
