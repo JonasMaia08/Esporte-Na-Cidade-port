@@ -1,10 +1,5 @@
-
-import {
-  Column,
-  Entity,
-  OneToMany,
-  PrimaryGeneratedColumn,
-} from "typeorm";
+import "reflect-metadata";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Teacher } from "./teacher.entity";
 import { Enrollment } from "./enrollment.entity";
 import { Atendiment } from "./atendiment.entity";
@@ -14,8 +9,8 @@ export class Modality {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({default:true})
-  active:boolean;
+  @Column({ type: "boolean", default: true })
+  active: boolean;
 
   @Column("text")
   name: string;
@@ -23,11 +18,11 @@ export class Modality {
   @Column("text")
   description: string;
 
-  @Column({ type: "text"})
+  @Column({ type: "text" })
   days_of_week: string;
 
   get daysOfWeekArray() {
-    return this.days_of_week.split(',');
+    return this.days_of_week.split(",");
   }
 
   @Column({ type: "time" })
@@ -36,16 +31,14 @@ export class Modality {
   @Column({ type: "time" })
   end_time: string;
 
-  @Column({ type: "text"})
+  @Column({ type: "text" })
   class_locations: string;
 
   get classLocationsArray() {
-    return this.class_locations.split(',');
+    return this.class_locations.split(",");
   }
 
-  @OneToMany(() => Teacher, (teacher) => teacher.modality, {
-    onDelete: "SET NULL",
-  })
+  @OneToMany(() => Teacher, (teacher) => teacher.modality, { onDelete: "SET NULL" })
   teachers: Teacher[];
 
   @OneToMany(() => Atendiment, (a) => a.modality)

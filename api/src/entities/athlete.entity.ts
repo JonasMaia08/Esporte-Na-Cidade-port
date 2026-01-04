@@ -1,4 +1,3 @@
-
 import { Column, Entity, OneToMany } from "typeorm";
 import { UserBase } from "./user-base.entity";
 import { Atendiment } from "./atendiment.entity";

@@ -33,7 +33,7 @@ beforeEach(async () => {
             photo_url: "https://example.com/photos/teacheralice.jpg",
             email: `teacheralice-${Date.now()}@example.com`,
             about: "Instrutora experiente de yoga.",
-            modality: 1,
+            modality: { id: 1 },
             role: Roles.TEACHER,
         },
         {
@@ -46,7 +46,7 @@ beforeEach(async () => {
             photo_url: "https://example.com/photos/teacherbob.jpg",
             email: `teacherbob-${Date.now()}@example.com`,
             about: "Treinador de natação com mais de 10 anos de experiência.",
-            modality: 1,
+            modality: { id: 1 },
             role: Roles.TEACHER,
         },
     ];

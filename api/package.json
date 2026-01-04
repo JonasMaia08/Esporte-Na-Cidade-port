@@ -5,7 +5,9 @@
   "scripts": {
     "testOnly": "cross-env NODE_ENV=test node --test-only --import tsx src/tests/enrollment.test.ts",
     "testSingleFile": "cross-env NODE_ENV=test node --test --import tsx src/tests/enrollment.test.ts",
-     "start": "tsx src/server.ts",
+    "start": "tsx src/server.ts",
+    "build": "tsc",
+    "start:prod": "node src/server.js",
     "test": "cross-env NODE_ENV=test node --test --import tsx src/tests/**/*.test.ts",
     "typeorm": "ts-node -O \"{\\\"module\\\":\\\"commonjs\\\"}\" ./node_modules/typeorm/cli.js",
     "migration:generate": "npm run typeorm -- migration:generate src/migrations/populando-atendimentos -d src/database/config.ts",

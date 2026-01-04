@@ -9,8 +9,6 @@ const materialRepository = AppDataSource.getRepository(Material);
 router.get("/", async (req, res) => {
     const materials = await materialRepository.find();
 
-    console.log(materials);
-    
     res.send(materials);
 });
 

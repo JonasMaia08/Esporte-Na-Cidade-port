@@ -1,13 +1,5 @@
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  ManyToOne,
-  OneToOne,
-  PrimaryColumn,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from "typeorm";
+import "reflect-metadata";
+import { Column, CreateDateColumn, UpdateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, JoinColumn } from "typeorm";
 import { Athlete } from "./athlete.entity";
 import { Modality } from "./modality.entity";
 
@@ -19,7 +11,7 @@ export class Enrollment {
   @Column({ type: "boolean", default: true })
   active: boolean;
 
-  @Column({  type: "boolean", default: false })
+  @Column({ type: "boolean", default: false })
   aproved: boolean;
 
   @CreateDateColumn({ type: "date", default: () => "CURRENT_TIMESTAMP" })
@@ -28,11 +20,17 @@ export class Enrollment {
   @UpdateDateColumn({ type: "date", default: () => "CURRENT_TIMESTAMP" })
   updated_at: Date;
 
-  @PrimaryColumn()
-  @ManyToOne(() => Athlete)
+  @Column({ type: "int" })
+  athleteId: number;
+
+  @Column({ type: "int" })
+  modalityId: number;
+
+  @ManyToOne(() => Athlete, a => a.enrollments, { onDelete: "CASCADE" })
+  @JoinColumn({ name: "athleteId" })
   athlete: Athlete;
 
-  @PrimaryColumn()
-  @ManyToOne(() => Modality)
+  @ManyToOne(() => Modality, m => m.enrollments, { onDelete: "CASCADE" })
+  @JoinColumn({ name: "modalityId" })
   modality: Modality;
 }
