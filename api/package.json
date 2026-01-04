@@ -5,7 +5,8 @@
   "scripts": {
     "testSingleFile": "cross-env NODE_ENV=test node --test --import tsx src/tests/enrollment.test.ts",
     "test": "cross-env NODE_ENV=test node --test --import tsx src/tests/**/*.test.ts",
-    "dev": "nodemon --watch \"src/\" -r \"tsconfig-paths/register\" --exec \"ts-node src/server.ts\" -e ts --env-file .env"
+    "dev": "nodemon --watch \"src/\" -r \"tsconfig-paths/register\" --exec \"ts-node src/server.ts\" -e ts --env-file .env",
+    "start": "node --import tsx src/server.ts"
   },
   "author": "",
   "license": "ISC",
@@ -26,11 +27,11 @@
   },
   "devDependencies": {
     "@types/express": "^5.0.0",
-    "@types/node": "^22.7.4",
+    "@types/node": "^22.19.3",
     "cross-env": "^7.0.3",
     "supertest": "^7.0.0",
     "ts-node": "^10.9.2",
-    "tsx": "^4.19.1",
+    "tsx": "^4.21.0",
     "typescript": "^5.6.2"
   }
 }
