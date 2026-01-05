@@ -82,10 +82,11 @@ login com gestor:  email: *teste@gmail.com* senha:*senha12345*
 - Implementação e criação do login de usuários
 - Criação da rota de cadastro de usuário
 - Criação da rota e lógica de armazenamento de imagem
+- Criação da rota e exibição dos relatórios gráficos
 - Criação das rotas de autenticação
 - Criação da rota de visualização de faltas
 - Integração com API para exibição de dados em diversas telas
-- Auxilio à outros membros em outras tarefas
+- Auxilio à outros membros 
 
 ---
 
