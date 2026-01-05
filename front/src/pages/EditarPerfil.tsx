@@ -121,10 +121,10 @@ const EditarPerfil: React.FC = () => {
 
   const handleSave = () => setIsModalOpen(true);
   const handleCancel = () => {
-  setIsEditing(false);
-  setValue("password", "");
-  setValue("confirmPassword", "");
-};
+    setIsEditing(false);
+    setValue("password", "");
+    setValue("confirmPassword", "");
+  };
   const handleConfirm = async () => {
     try {
       setLoading(true);
@@ -200,11 +200,11 @@ const EditarPerfil: React.FC = () => {
               <label className="block text-gray-700 mt-1">Foto</label>
               {getValues("photo") && (
                 <img src={getValues("photo")}
-                     alt="Pré-visualização"
-                     className="mt-2 rounded w-32 h-32 object-cover border"
+                  alt="Pré-visualização"
+                  className="mt-2 rounded w-32 h-32 object-cover border"
                 />
               )}
-              
+
               <input
                 type="file"
                 id="photo"
@@ -213,24 +213,33 @@ const EditarPerfil: React.FC = () => {
                   if (!isEditing) return;
                   const file = e.target.files?.[0];
                   if (!file) return;
+
                   const formData = new FormData();
                   formData.append("profile", file);
+
                   try {
-                    const response = await fetch("http://localhost:3002/api/uploads/upload", {
-                      method: "POST",
-                      body: formData,
+                    const response = await api.post("/api/uploads/upload", formData, {
+                      headers: { "Content-Type": "multipart/form-data" }
                     });
-                    const data = await response.json();
-                    if (data.profile) {
-                      setValue("photo", data.profile);
-                      toast.success("Imagem de perfil atualizada!");
-                    } else {
-                      toast.error("Falha ao processar imagem.");
+
+                    if (response.status === 200) {
+                      console.log("Upload feito com sucesso 🚀");
+
+                      const data = response.data;
+
+                      if (data.profile) {
+                        setValue("photo", data.profile);
+                        toast.success("Imagem de perfil atualizada!");
+                      } else {
+                        toast.error("Falha ao processar imagem.");
+                      }
                     }
+
                   } catch (err) {
                     toast.error("Erro ao fazer upload da imagem.");
                   }
                 }}
+
                 className="absolute opacity-0 w-full h-10 top-0 left-0 cursor-pointer z-10"
               />
               <label
@@ -240,7 +249,7 @@ const EditarPerfil: React.FC = () => {
               >
                 Escolha o arquivo
               </label>
-              
+
             </div>
             <div>
               <label className="block text-gray-700 mt-1">Nome</label>
@@ -249,9 +258,8 @@ const EditarPerfil: React.FC = () => {
                 id="name"
                 {...register("name")}
                 disabled={!isEditing}
-                className={`w-full mt-1 p-2 border border-gray-300 rounded ${
-                  !isEditing ? "bg-gray-100 text-gray-500" : ""
-                }`}
+                className={`w-full mt-1 p-2 border border-gray-300 rounded ${!isEditing ? "bg-gray-100 text-gray-500" : ""
+                  }`}
               />
               {errors.name && (
                 <p className="text-red-500 text-sm mt-1">
@@ -266,9 +274,8 @@ const EditarPerfil: React.FC = () => {
                 id="email"
                 {...register("email")}
                 disabled={!isEditing}
-                className={`w-full mt-1 p-2 border border-gray-300 rounded ${
-                  !isEditing ? "bg-gray-100 text-gray-500" : ""
-                }`}
+                className={`w-full mt-1 p-2 border border-gray-300 rounded ${!isEditing ? "bg-gray-100 text-gray-500" : ""
+                  }`}
               />
               {errors.email && (
                 <p className="text-red-500 text-sm mt-1">
@@ -283,9 +290,8 @@ const EditarPerfil: React.FC = () => {
                 id="phone"
                 {...register("phone")}
                 disabled={!isEditing}
-                className={`w-full mt-1 p-2 border border-gray-300 rounded ${
-                  !isEditing ? "bg-gray-100 text-gray-500" : ""
-                }`}
+                className={`w-full mt-1 p-2 border border-gray-300 rounded ${!isEditing ? "bg-gray-100 text-gray-500" : ""
+                  }`}
               />
               {errors.phone && (
                 <p className="text-red-500 text-sm mt-1">
@@ -293,7 +299,7 @@ const EditarPerfil: React.FC = () => {
                 </p>
               )}
             </div>
-            
+
             <div>
               <label className="block text-gray-700 mt-1">CEP</label>
               <input
@@ -301,9 +307,8 @@ const EditarPerfil: React.FC = () => {
                 id="cep"
                 {...register("cep")}
                 disabled={!isEditing}
-                className={`w-full mt-1 p-2 border border-gray-300 rounded ${
-                  !isEditing ? "bg-gray-100 text-gray-500" : ""
-                }`}
+                className={`w-full mt-1 p-2 border border-gray-300 rounded ${!isEditing ? "bg-gray-100 text-gray-500" : ""
+                  }`}
               />
               {errors.cep && (
                 <p className="text-red-500 text-sm mt-1">
@@ -318,9 +323,8 @@ const EditarPerfil: React.FC = () => {
                 id="street"
                 {...register("street")}
                 disabled={!isEditing}
-                className={`w-full mt-1 p-2 border border-gray-300 rounded ${
-                  !isEditing ? "bg-gray-100 text-gray-500" : ""
-                }`}
+                className={`w-full mt-1 p-2 border border-gray-300 rounded ${!isEditing ? "bg-gray-100 text-gray-500" : ""
+                  }`}
               />
               {errors.street && (
                 <p className="text-red-500 text-sm mt-1">
@@ -335,9 +339,8 @@ const EditarPerfil: React.FC = () => {
                 id="number"
                 {...register("number")}
                 disabled={!isEditing}
-                className={`w-full mt-1 p-2 border border-gray-300 rounded ${
-                  !isEditing ? "bg-gray-100 text-gray-500" : ""
-                }`}
+                className={`w-full mt-1 p-2 border border-gray-300 rounded ${!isEditing ? "bg-gray-100 text-gray-500" : ""
+                  }`}
               />
               {errors.number && (
                 <p className="text-red-500 text-sm mt-1">
@@ -352,9 +355,8 @@ const EditarPerfil: React.FC = () => {
                 id="neighborhood"
                 {...register("neighborhood")}
                 disabled={!isEditing}
-                className={`w-full mt-1 p-2 border border-gray-300 rounded ${
-                  !isEditing ? "bg-gray-100 text-gray-500" : ""
-                }`}
+                className={`w-full mt-1 p-2 border border-gray-300 rounded ${!isEditing ? "bg-gray-100 text-gray-500" : ""
+                  }`}
               />
               {errors.neighborhood && (
                 <p className="text-red-500 text-sm mt-1">
@@ -369,9 +371,8 @@ const EditarPerfil: React.FC = () => {
                 id="city"
                 {...register("city")}
                 disabled={!isEditing}
-                className={`w-full mt-1 p-2 border border-gray-300 rounded ${
-                  !isEditing ? "bg-gray-100 text-gray-500" : ""
-                }`}
+                className={`w-full mt-1 p-2 border border-gray-300 rounded ${!isEditing ? "bg-gray-100 text-gray-500" : ""
+                  }`}
               />
               {errors.city && (
                 <p className="text-red-500 text-sm mt-1">
@@ -386,12 +387,11 @@ const EditarPerfil: React.FC = () => {
                 id="password"
                 {...register("password")}
                 disabled={!isEditing}
-                className={`w-full mt-1 p-2 border border-gray-300 rounded ${
-                  !isEditing ? "bg-gray-100 text-gray-500" : ""
-                }`}
+                className={`w-full mt-1 p-2 border border-gray-300 rounded ${!isEditing ? "bg-gray-100 text-gray-500" : ""
+                  }`}
               />
               <PasswordRequirements password={getValues("password") || ""} />
-              
+
             </div>
             <div>
               <label className="block text-gray-700 mt-1">
@@ -402,16 +402,15 @@ const EditarPerfil: React.FC = () => {
                 id="confirmPassword"
                 {...register("confirmPassword")}
                 disabled={!isEditing}
-                className={`w-full mt-1 p-2 border border-gray-300 rounded ${
-                  !isEditing ? "bg-gray-100 text-gray-500" : ""
-                }`}
+                className={`w-full mt-1 p-2 border border-gray-300 rounded ${!isEditing ? "bg-gray-100 text-gray-500" : ""
+                  }`}
               />
               {errors.confirmPassword && (
                 <p className="text-red-500 text-sm mt-1">
                   {errors.confirmPassword.message as string}
                 </p>
               )}
-            
+
             </div>
             <div className="flex justify-between mt-6">
               {isEditing ? (
