@@ -14,7 +14,7 @@ if (existsSync(dbFile)) unlinkSync(dbFile);
 const app = express();
 
 app.use(cors({
-    origin: 'https://esporte-na-cidade-port-69fh.vercel.app/', //definindo a porta que o front esta rodando pq o cors estava nao permitindo por conta da proteção de rota
+    origin: 'https://esporte-na-cidade-port-69fh.vercel.app', //definindo a porta que o front esta rodando pq o cors estava nao permitindo por conta da proteção de rota
     credentials: true                
   }));
   
