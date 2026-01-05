@@ -1,4 +1,4 @@
-# Projeto Esporte na Cidade – Potim (Portfólio)
+# Projeto Esporte na Cidade – Potim
 
 ## Sobre o Projeto
 Aplicação web desenvolvida em **colaboração acadêmica (realizado em grupo)** na **FATEC Guaratinguetá** como parte da iniciativa municipal **Esporte na Cidade**, em parceria  com Prefeitura de Potim.  
