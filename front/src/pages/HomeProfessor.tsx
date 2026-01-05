@@ -97,7 +97,7 @@ const HomeProfessor = () => {
             ]}
           />
 
-          <div className="max-w-7xl pb-24 ml-24 mr-10 mt-14 ">
+          <div className="w-full max-w-7xl pb-24 mt-14 mx-auto px-4 md:px-6 lg:pl-24">
             <h1 className="text-2xl font-bold">
               Olá, Professor(a){" "}
               <span className="text-[#EB8317]">{userData?.name}</span>!

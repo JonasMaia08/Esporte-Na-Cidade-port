@@ -192,7 +192,7 @@ const EditarPerfil: React.FC = () => {
         ]}
       />
       <Toaster />
-      <div className="p-6 bg-[#F4F6FF] min-h-screen">
+      <div className="p-6 bg-[#F4F6FF] min-h-screen pb-32 md:pb-6">
         <h1 className="text-xl text-center font-bold mb-6">Editar Perfil</h1>
         <div className="space-y-4 max-w-lg mx-auto">
           <form onSubmit={handleSubmit(handleConfirm)} >

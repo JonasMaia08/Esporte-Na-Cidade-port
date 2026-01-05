@@ -107,8 +107,7 @@ const ChamadaComp: React.FC<AttendanceProps> = ({
   };
 
   return (
-    <div className="p-6 min-h-screen  px-20 ">
-
+    <div className="p-4 md:p-6 min-h-screen w-full md:px-20">
       <h2 className="text-2xl font-bold pl-6 pt-8">Realizar Chamada</h2>
       <div className=" grid grid-cols-1 sm:grid-cols-2   gap-6 pt-8 ">
         {/* ...modalidade e data... */}
@@ -155,7 +154,7 @@ const ChamadaComp: React.FC<AttendanceProps> = ({
         Gerar Lista de Chamada
       </button> */}
 
-      <div className="space-y-4 mt-6 bg-[#d9d9d9] border border-black p-4 rounded-lg ">
+      <div className="space-y-4 mt-6 bg-[#d9d9d9] border border-black p-3 md:p-4 rounded-lg w-full">
         <p className="text-2xl font-semibold">Alunos da modalidade</p>
 
         {students.map((student) => (
