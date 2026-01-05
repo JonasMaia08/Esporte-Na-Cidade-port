@@ -218,7 +218,7 @@ const EditarPerfil: React.FC = () => {
                   formData.append("profile", file);
 
                   try {
-                    const response = await api.post("/api/uploads/upload", formData, {
+                    const response = await api.post("/uploads/upload", formData, {
                       headers: { "Content-Type": "multipart/form-data" }
                     });
 
@@ -454,3 +454,4 @@ const EditarPerfil: React.FC = () => {
 };
 
 export default EditarPerfil;
+
