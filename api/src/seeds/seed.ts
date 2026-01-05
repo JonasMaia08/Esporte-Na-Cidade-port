@@ -357,7 +357,7 @@ export const seedOfAllEntities = async () => {
 
   let teacherDemo = new Teacher();
 
-  teacherDemo.email = "maia.jonas2000@gmail.com";
+  teacherDemo.email = "teste@gmail.com";
   teacherDemo.password = await bcrypt.hash(`senha12345`, 10);
   teacherDemo.name = "Josias Pofessor";
   teacherDemo.cpf = faker.string.numeric(11); // Gera CPF sem formatação
