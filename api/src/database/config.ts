@@ -7,7 +7,7 @@ export const AppDataSource = new DataSource({
   type: "sqlite",
   database: env.NODE_ENV === "test" ? "db.test.sqlite" : "db.sqlite",
 
-  synchronize: false, // ❗ desativei (no seu caso, Render = prod)
+  synchronize: true, // ❗ desativei (no seu caso, Render = prod)
   dropSchema: false,
   logging: false,
 
